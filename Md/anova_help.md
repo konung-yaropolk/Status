@@ -1,6 +1,6 @@
 <details>
 <summary>Help</summary>
 
-![sss](Images/anova.png)
+![sss](anova.png)
 
 </details>
