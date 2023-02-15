@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -5,20 +7,20 @@ import pingouin as pg
 import seaborn as sns
 import matplotlib.pyplot as plt
 import markdown
+
 from pathlib import Path
 from PIL import Image
 from pandas_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
 from statannot import add_stat_annotation
 from math import sqrt
-
-
 from bioinfokit.analys import stat
+
 
 st.set_page_config(page_title="Status", layout="wide", initial_sidebar_state="expanded", )
 sns.set_style("white")
 
-global df
+
 describe_data = None
 choose_analysis = None
 
@@ -83,7 +85,7 @@ if choose_analysis == "Chi-square test":
 
     y_var1 = st.sidebar.selectbox("Choose first categorical variable:", cat_vars)
     y_var2 = st.sidebar.selectbox("Choose second categorical variable:", cat_vars)
-    expand = st.sidebar.beta_expander("More options")
+    expand = st.sidebar.expander("More options")
     yates_correction = expand.checkbox("Use Yates correction?")
     # move_counts = expand.slider("Adjust labels for counts on bar plot", 0.0, 0.5, 0.15, 0.01)
 
@@ -142,7 +144,7 @@ if choose_analysis == "Student t-test (Mann-Whitney)":
     x_var = st.sidebar.selectbox("Choose numeric variable:", numeric_vars)
     y_var = st.sidebar.selectbox("Choose grouping variable:", new_cat)
 
-    expand = st.sidebar.beta_expander("More options")
+    expand = st.sidebar.expander("More options")
     param_vs_nonparam = expand.radio("Parametric or nonparametric tests?",
                                      ("Parametric tests (Student, Welch)", "Nonparametric (Mann-Whitney)"))
     normality_selected = expand.radio("Select normality test", ["Shapiro-Wilk", "Omnibus test of normality"])
@@ -260,7 +262,7 @@ if choose_analysis == "One, Two-way ANOVA":
     y_var = st.sidebar.selectbox("Choose grouping variable:", cat_vars)
     y_var2 = st.sidebar.selectbox("Choose second grouping variable:", (cat_vars2))
 
-    expand = st.sidebar.beta_expander("More options")
+    expand = st.sidebar.expander("More options")
     classic_vs_welch = expand.radio("Classic ANOVA or Welch ANOVA?", ("Classic ANOVA", "Welch ANOVA"))
     normality_selected = expand.radio("Select normality test", ["Shapiro-Wilk", "Omnibus test of normality"])
     error_selected = expand.radio("Choose error bar to plot",
@@ -432,7 +434,7 @@ if choose_analysis == "Non-parametric ANOVA":
     x_var = st.sidebar.selectbox("Choose numeric variable:", numeric_vars)
     y_var = st.sidebar.selectbox("Choose grouping variable:", cat_vars)
 
-    expand = st.sidebar.beta_expander("More options")
+    expand = st.sidebar.expander("More options")
 
     error_selected = expand.radio("Choose error bar to plot",
                                   ["Standard error of the mean", "95% confidence intervals", "Standard deviation"])
@@ -520,7 +522,7 @@ if choose_analysis == "Repeated measures mixed ANOVA":
 
     groups = list(df[y_var].unique())
 
-    expand = st.sidebar.beta_expander("More options")
+    expand = st.sidebar.expander("More options")
     error_selected = expand.radio("Choose error bar to plot",
                                   ["Standard error of the mean", "95% confidence intervals", "Standard deviation"])
     groups_selection = expand.multiselect("Choose the order of within factor", groups, groups)
@@ -593,7 +595,7 @@ if choose_analysis == "Correlation":
     x_var1 = st.sidebar.selectbox("Choose first numeric variable", numeric_vars)
     x_var2 = st.sidebar.selectbox("Choose second numeric variable", numeric_vars)
 
-    expand = st.sidebar.beta_expander("More options")
+    expand = st.sidebar.expander("More options")
     method_selected = expand.radio("Select correlation type",
                                    ("pearson", "spearman", "kendall", "bicor", "percbend", "shepherd"))
     plot_r = expand.checkbox("Plot coefficient and p-value on graph?", True)
